@@ -1,55 +1,61 @@
-#include "piece.h" // Include the piece header file
-#include "board.h"
-#include <iostream> 
+#include "piece.h"
+#include "board.h" 
 
+// Initialize static constants for piece colors
 const string Piece::NAME_BLACK = "black"; 
 const string Piece::NAME_WHITE = "white"; 
 const string Piece::NAME_NO_COLOR = "*"; 
 
+// Constructor for the Piece class
 Piece::Piece(string name, Coordinates position, string color, Board *board)
-    : name(name), position(position), color(color), board(board), value(0) {} // Constructor initializing variables
+    : name(name), position(position), color(color), board(board), value(0) {}
 
-Piece::~Piece() {} // Destructor
+// Destructor for the Piece class
+Piece::~Piece() {}
 
+// Method to move the piece to a new position
 void Piece::move(Coordinates finalPosition) {
-    position = finalPosition; // Moving the piece to the final position
+    position = finalPosition; // Update the piece's position
 }
 
+// Getter for the piece's position
 Coordinates Piece::getPosition() const {
-    return position; // Returning the current position of the piece
+    return position;
 }
 
+// Overloaded output operator for printing the piece's details
 ostream &operator<<(ostream &os, const Piece &p) {
-    os << p.name << " at " << p.position << " (" << p.color << ")"; // Output format
-    return os; // Returning the output
+    os << p.name << " at " << p.position << " (" << p.color << ")";
+    return os;
 }
 
+// Constructor for the Knight class
 Knight::Knight(string name, Coordinates position, string color, Board *board)
     : Piece(name, position, color, board) {
-    value = 3; // Setting the value of the knight
+    value = 3; // Set the value of the knight
 }
 
+// Method to calculate possible moves for the Knight
 int Knight::possibleMoves(Coordinates **&arrayMoves) {
-    // Knight moves: 8 possible moves
     static const int moveOffsets[8][2] = {
         {2, 1}, {1, 2}, {-1, 2}, {-2, 1}, {-2, -1}, {-1, -2}, {1, -2}, {2, -1}
     };
 
-    arrayMoves = new Coordinates *[8]; // 8 possible moves
+    arrayMoves = new Coordinates *[8]; // Allocate space for up to 8 possible moves
     int count = 0;
 
     for (int i = 0; i < 8; ++i) {
-        char newCol = position.getColumn() + moveOffsets[i][0]; // Calculate the new column
-        int newRow = position.getRow() + moveOffsets[i][1]; // Calculate the new row
+        char newCol = position.getColumn() + moveOffsets[i][0]; // Calculate new column
+        int newRow = position.getRow() + moveOffsets[i][1]; // Calculate new row
 
         cout << "Checking move: newCol = " << newCol << ", newRow = " << newRow << std::endl;
 
         if (newCol >= 'a' && newCol <= 'h' && newRow >= 1 && newRow <= 8) {
-            Coordinates *newMove = new Coordinates(newCol, newRow); // Creating a new Coordinates object
-            Piece *targetPiece = board->pieceEn(newMove); // Get the piece on the target square
+            Coordinates *newMove = new Coordinates(newCol, newRow); // Create new move
+            Piece *targetPiece = board->pieceEn(newMove); // Get the piece at the target position
 
             if (targetPiece == nullptr) {
-                arrayMoves[count++] = newMove; // Add the move if the square is empty
+                arrayMoves[count++] = newMove; // Add move if the square is empty
             } else {
                 cout << "Square " << *newMove << " is occupied." << endl;
                 delete newMove; // Avoid memory leak
@@ -57,20 +63,23 @@ int Knight::possibleMoves(Coordinates **&arrayMoves) {
         }
     }
 
-    return count; // Returning the valid moves
+    return count; // Return the number of valid moves
 }
+
+// Constructor for the Pawn class
 Pawn::Pawn(string name, Coordinates position, string color, Board *board)
     : Piece(name, position, color, board) {
-    value = 1; // Setting the value of the pawn
+    value = 1; // Set the value of the pawn
 }
+
+// Method to calculate possible moves for the Pawn
 int Pawn::possibleMoves(Coordinates **&arrayMoves) {
-    // Pawn moves: Only forward moves for now
-    arrayMoves = new Coordinates *[2]; // Maximum 2 possible moves (1 step and 2 steps forward)
+    arrayMoves = new Coordinates *[2]; // Allocate space for up to 2 possible moves
     int count = 0;
     
-    int direction = (color == Piece::NAME_WHITE) ? 1 : -1; // White pawns move up, black pawns move down
+    int direction = (color == Piece::NAME_WHITE) ? 1 : -1; // Determine move direction based on color
 
-    // One step forward
+    // Calculate one step forward move
     char newCol = position.getColumn();
     int newRow = position.getRow() + direction;
 
@@ -78,7 +87,7 @@ int Pawn::possibleMoves(Coordinates **&arrayMoves) {
         arrayMoves[count++] = new Coordinates(newCol, newRow);
     }
 
-    // Two steps forward (only if the pawn is in its initial position)
+    // Calculate two steps forward move if the pawn is in its initial position
     if ((color == Piece::NAME_WHITE && position.getRow() == 2) || (color == Piece::NAME_BLACK && position.getRow() == 7)) {
         newRow = position.getRow() + 2 * direction;
         if (board->pieceEn(newCol, newRow) == nullptr) {
@@ -86,9 +95,9 @@ int Pawn::possibleMoves(Coordinates **&arrayMoves) {
         }
     }
 
-    return count; // Returning the valid moves
+        return count;
 }
 
 Pawn::~Pawn() {
-    // Destructor logic if needed
+
 }

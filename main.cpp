@@ -1,4 +1,3 @@
-// main.cpp
 #include <iostream>
 #include "coordinates.h"
 #include "board.h"
@@ -8,7 +7,7 @@
 #include "chessTournament.h"
 
 int main() {
-    ChessTournament<4> trn;
+    ChessTournament<4> trn;  // Create a chess tournament with 4 rounds
 
     trn.insertGame(Game("p1.a2pgn", "Final", 8));
     trn.insertGame(Game("p2.a2pgn", "SF1", 8));
@@ -26,6 +25,7 @@ int main() {
     trn.insertGame(Game("p14.a2pgn", "PQF7", 8));
     trn.insertGame(Game("p15.a2pgn", "PQF8", 8));
 
+    // Display the tournament games in post-order traversal
     std::cout << "----Post Order traversal of Binary Search Tree of All Games---" << std::endl;
     trn.show();
 
