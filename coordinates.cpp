@@ -1,39 +1,41 @@
-#include "coordinates.h" // Include the header file
+// coordinates.cpp
+#include "coordinates.h"
 
-Coordinates::Coordinates() : column('a'), row(1) {} // Default constructor
+Coordinates::Coordinates() : column('a'), row(1) {}
 
-Coordinates::Coordinates(char column, int row) : column(column), row(row) {} // Parameterized constructor
+Coordinates::Coordinates(char column, int row) : column(column), row(row) {}
 
-Coordinates::Coordinates(const Coordinates &crdns) : column(crdns.column), row(crdns.row) {}// Copy constructor initializing column and row
+Coordinates::Coordinates(const Coordinates &crdns) : column(crdns.column), row(crdns.row) {}
 
-    // Getter for the column
-    char Coordinates::getColumn() const
-    {
-        return column;
-    }
+char Coordinates::getColumn() const {
+    return column;
+}
 
-    // Getter for the row
-    int Coordinates::getRow() const
-    {
-        return row;
-    }
+int Coordinates::getRow() const {
+    return row;
+}
 
-    // Setter for the column
-    void Coordinates::setColumn(char clmn)
-    {
-        column = clmn;
-    }
+void Coordinates::setColumn(char clmn) {
+    column = clmn;
+}
 
-    // Setter for the row
-    void Coordinates::setRow(int row)
-    {
-        this->row = row;
-    }
+void Coordinates::setRow(int row) {
+    this->row = row;
+}
 
-    // Overloaded << operator
-    std::ostream &operator<<(std::ostream &os, const Coordinates &crdnd)
-    {
-        os << "[" << crdnd.column << ", " << crdnd.row << "]"; // Output format: [column, row]
-        return os;
-    }
-    
+int Coordinates::columnToIndex(char column) {
+    return column - 'a';
+}
+
+char Coordinates::indexToColumn(int idc) {
+    return 'a' + idc;
+}
+
+ostream &operator<<(ostream &os, const Coordinates &crdnd) {
+    os << "[" << crdnd.column << ", " << crdnd.row << "]";
+    return os;
+}
+
+bool operator==(const Coordinates &lhs, const Coordinates &rhs) {
+    return lhs.column == rhs.column && lhs.row == rhs.row;
+}

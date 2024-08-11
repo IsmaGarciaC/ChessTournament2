@@ -1,3 +1,4 @@
+// square.h
 #pragma once
 #include <iostream>
 #include "coordinates.h"
@@ -17,16 +18,14 @@ public:
     static const string NAME_BLACK;
     static const string NAME_WHITE;
     static const string NAME_NO_COLOR;
-
     void setCoordinatesColor(char column, int row);
     void setColor(string color);
     void setPiece(Piece *pp);
-    Coordinates getCoordinates();
-    char getColumn();
-    int getRow();
-    string getColor();
-    Piece* getPiece();
-
+    Coordinates getCoordinates() const;
+    char getColumn() const;
+    int getRow() const;
+    string getColor() const;
+    Piece* getPiece() const;
     Square();
     Square(Coordinates crdns, string clr, Piece *pp);
     ~Square();

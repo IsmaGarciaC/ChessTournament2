@@ -1,20 +1,20 @@
+// chessTournament.h
 #pragma once
 #include <iostream>
 #include <set>
 #include <cmath>
 #include "game.h"
 #include "bSearchTreeType.h"
-using namespace std;
 
 template <int N>
 class ChessTournament {
 private:
-     BSearchTreeType games;
-    string name;
+    BSearchTreeType games;
+    std::string name;
     int num_rounds = N;
 
 public:
-    string getName();
+    std::string getName();
     int getNumRounds();
     void insertGame(Game p);
     void show();
@@ -38,14 +38,13 @@ ChessTournament<N>::ChessTournament() {
 }
 
 template <int N>
-string ChessTournament<N>::getName() { 
-    
-    return name; 
+std::string ChessTournament<N>::getName() {
+    return name;
 }
 
 template <int N>
-int ChessTournament<N>::getNumRounds() { 
-    return num_rounds; 
+int ChessTournament<N>::getNumRounds() {
+    return num_rounds;
 }
 
 template <int N>
@@ -56,14 +55,14 @@ void ChessTournament<N>::insertGame(Game p) {
 }
 
 template <int N>
-void ChessTournament<N>::show() { 
-    games.postOrder(); 
+void ChessTournament<N>::show() {
+    games.postOrder();
 }
 
 template <int N>
 void ChessTournament<N>::keysGames() {
     int numRounds = N;
-    set<int> indexes_used;
+    std::set<int> indexes_used;
     int limit = (int)pow(2, numRounds) - 1;
     int n = numRounds - 1;
 

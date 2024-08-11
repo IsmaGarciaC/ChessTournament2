@@ -1,10 +1,9 @@
+// square.cpp
 #include "square.h"
-
 
 const string Square::NAME_BLACK = "black";
 const string Square::NAME_WHITE = "white";
 const string Square::NAME_NO_COLOR = "*";
-
 
 Square::Square() : coordinates('a', 1), color(NAME_NO_COLOR), piece(nullptr) {}
 
@@ -26,22 +25,22 @@ void Square::setPiece(Piece *pp) {
     piece = pp;
 }
 
-Coordinates Square::getCoordinates() {
+Coordinates Square::getCoordinates() const {
     return coordinates;
 }
 
-char Square::getColumn() {
+char Square::getColumn() const {
     return coordinates.getColumn();
 }
 
-int Square::getRow() {
+int Square::getRow() const {
     return coordinates.getRow();
 }
 
-string Square::getColor() {
+string Square::getColor() const {
     return color;
 }
 
-Piece* Square::getPiece() {
+Piece* Square::getPiece() const {
     return piece;
 }

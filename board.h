@@ -1,3 +1,4 @@
+// board.h
 #pragma once
 #include <iostream>
 #include "coordinates.h"
@@ -6,8 +7,7 @@
 
 using namespace std;
 
-class Board
-{
+class Board {
 private:
     int numRows, numColumns;
     Square *squares;
@@ -31,24 +31,17 @@ public:
 
     void setNumRows(int rws);
     void setNumColumns(int clmns);
-
-    int getNumRows();
-    int getNumColumns();
-
-    Square *getSquares();
-
+    int getNumRows() const;
+    int getNumColumns() const;
+    Square *getSquares() const;
     Piece *pieceEn(char column, int row);
     Piece *pieceEn(Coordinates *position);
-
-    
-
     Board();
     Board(int dim);
     Board(int dim, string array_char_position);
-
+    Board(const Board &other);
+    Board& operator=(const Board &other);
     ~Board();
-
     static string moverString(int numColumns, int numRows, char c1, int f1, char c2, int f2, string str_board);
-
     friend ostream& operator<<(ostream& os, Board& t);
 };
