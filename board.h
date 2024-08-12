@@ -1,5 +1,3 @@
-// board.h
-
 #pragma once
 #include <iostream>
 #include "coordinates.h"
@@ -10,8 +8,8 @@ using namespace std;
 
 class Board {
 private:
-    int numRows, numColumns;   // Number of rows and columns on the board
-    Square *squares;           // Array representing the squares on the board
+    int numRows, numColumns;   
+    Square *squares;          
 
 public:
     // Constants representing various aspects of the board's visual representation
